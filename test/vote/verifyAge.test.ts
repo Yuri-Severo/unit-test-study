@@ -1,4 +1,4 @@
-import { ageVerifier } from "./ageVerifier";
+import { ageVerifier } from "./verifyAge";
 
 describe("Testing the validity of the ages to vote",() => {
     it("Case is 17, is invalid",()=> {

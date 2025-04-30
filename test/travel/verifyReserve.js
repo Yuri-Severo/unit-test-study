@@ -36,6 +36,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Ask = Ask;
+exports.sendEmail = sendEmail;
 exports.ReserveFly = ReserveFly;
 var readline = require("readline");
 var flys = [
@@ -112,9 +114,14 @@ function sendEmail(name, email) {
         "To: ".concat(email, "\n\n") +
         "Hello, ".concat(name, "! We are happy to say that your reservation has been completed!\n"));
 }
-function ReserveFly(start, destiny) {
-    return __awaiter(this, void 0, void 0, function () {
-        var result, flightChoice, _a, chosenFly, chosenAssent, _b, name, email;
+function ReserveFly(start_1, destiny_1) {
+    return __awaiter(this, arguments, void 0, function (start, destiny, testMode, flightChoice, chosenAssent, name, email) {
+        var result, _a, chosenFly, _b;
+        if (testMode === void 0) { testMode = 0; }
+        if (flightChoice === void 0) { flightChoice = 0; }
+        if (chosenAssent === void 0) { chosenAssent = 0; }
+        if (name === void 0) { name = ""; }
+        if (email === void 0) { email = ""; }
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
@@ -126,10 +133,13 @@ function ReserveFly(start, destiny) {
                     result.forEach(function (f) {
                         console.log("Flight Number: ".concat(f.n, " | Date: ").concat(f.date, " | Time: ").concat(f.time, " | Price: ").concat(f.price));
                     });
+                    if (!(testMode === 0)) return [3 /*break*/, 2];
                     _a = Number;
                     return [4 /*yield*/, Ask("Choose a flight by number: ")];
                 case 1:
                     flightChoice = _a.apply(void 0, [_c.sent()]);
+                    _c.label = 2;
+                case 2:
                     chosenFly = result.find(function (f) { return f.n === flightChoice; });
                     if (!chosenFly) {
                         return [2 /*return*/, "Invalid flight number selected."];
@@ -138,19 +148,25 @@ function ReserveFly(start, destiny) {
                         return [2 /*return*/, "No available seats on this flight."];
                     }
                     console.log("\nAvailable seats: ".concat(chosenFly.assents.join(', ')));
+                    if (!(testMode === 0)) return [3 /*break*/, 4];
                     _b = Number;
                     return [4 /*yield*/, Ask("Choose your seat number: ")];
-                case 2:
+                case 3:
                     chosenAssent = _b.apply(void 0, [_c.sent()]);
+                    _c.label = 4;
+                case 4:
                     if (!chosenFly.assents.includes(chosenAssent)) {
                         return [2 /*return*/, "This seat is not available."];
                     }
+                    if (!(testMode === 0)) return [3 /*break*/, 7];
                     return [4 /*yield*/, Ask("Your Name: ")];
-                case 3:
+                case 5:
                     name = _c.sent();
                     return [4 /*yield*/, Ask("Your Email: ")];
-                case 4:
+                case 6:
                     email = _c.sent();
+                    _c.label = 7;
+                case 7:
                     sendEmail(name, email);
                     return [2 /*return*/, "Seat ".concat(chosenAssent, " reserved on flight ").concat(chosenFly.n, "!")];
             }

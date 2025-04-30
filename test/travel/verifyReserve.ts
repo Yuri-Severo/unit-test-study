@@ -80,7 +80,7 @@ export function sendEmail(name: string, email: string) {
   );
 }
 
-export async function ReserveFly(start: string, destiny: string): Promise<string> {
+export async function ReserveFly(start: string, destiny: string, testMode = 0, flightChoice:number = 0, chosenAssent:number = 0, name:string = "", email:string = ""): Promise<string> {
   const result = flys.filter(f => f.start === start && f.destiny === destiny);
 
   if (result.length === 0) {
@@ -92,7 +92,9 @@ export async function ReserveFly(start: string, destiny: string): Promise<string
     console.log(`Flight Number: ${f.n} | Date: ${f.date} | Time: ${f.time} | Price: ${f.price}`);
   });
 
-  const flightChoice = Number(await Ask("Choose a flight by number: "));
+  if(testMode===0){
+    flightChoice = Number(await Ask("Choose a flight by number: "));
+  }
   const chosenFly = result.find(f => f.n === flightChoice);
 
   if (!chosenFly) {
@@ -104,14 +106,17 @@ export async function ReserveFly(start: string, destiny: string): Promise<string
   }
 
   console.log(`\nAvailable seats: ${chosenFly.assents.join(', ')}`);
-  const chosenAssent = Number(await Ask("Choose your seat number: "));
+  if(testMode===0){
+    chosenAssent = Number(await Ask("Choose your seat number: "));
+  }
 
   if (!chosenFly.assents.includes(chosenAssent)) {
     return "This seat is not available.";
   }
-
-  const name = await Ask("Your Name: ");
-  const email = await Ask("Your Email: ");
+  if(testMode===0){
+    name = await Ask("Your Name: ");
+    email = await Ask("Your Email: ");
+  }
 
   sendEmail(name, email);
 

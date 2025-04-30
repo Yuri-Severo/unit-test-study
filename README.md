@@ -1,11 +1,35 @@
-This is a activity made fro Software Engineering class in my Computer Engineering Course, where we see a little about unit tests.
-In my case, i made the exercises with JEST JS, in TS language.
-Here we have 3 exercises:
-vote: Test the Equivalence partitioning of age input for voting in Brazil
-grade: Test the flow of the data values to calculate a mean 
-travel: Test the use cases for a fly reserve
+Unit Test Exercises – Software Engineering Class
 
-All test files are in test/, and they were made following the pdf instructions. 
-To run all them, type: npm test
+This project is part of an activity from the Software Engineering class in my Computer Engineering course. The goal is to practice basic unit testing concepts.
 
-Bonus: The "travel" can be used by terminal! go to test/travel and type: node verifyReserve.js
+I completed the exercises using Jest with TypeScript.
+Included Exercises
+
+    vote – Tests age input for voting eligibility in Brazil using equivalence partitioning.
+
+    grade – Validates the logic to calculate the average of student grades.
+
+    travel – Tests the use cases of a flight reservation system.
+
+Structure
+
+    All test files are located in the test/ directory.
+
+    The implementations follow the instructions provided in the class PDF.
+
+How to Run
+
+Install dependencies:
+
+npm install
+
+Run all tests:
+
+npm test
+
+Bonus
+
+You can run the travel logic directly from the terminal:
+
+cd test/travel
+node verifyReserve.js

@@ -57,7 +57,7 @@ const flys = [
   },
 ];
 
-function Ask(question: string): Promise<string> {
+export function Ask(question: string): Promise<string> {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -71,7 +71,7 @@ function Ask(question: string): Promise<string> {
   });
 }
 
-function sendEmail(name: string, email: string) {
+export function sendEmail(name: string, email: string) {
   console.log(
     `\n--- Email Confirmation ---\n` +
     `From: flyenterprise@mail.com\n` +

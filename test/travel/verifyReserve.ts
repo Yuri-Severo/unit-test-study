@@ -1,4 +1,4 @@
-import * as readline from 'readline';
+import * as readline from "readline";
 
 const flys = [
   {
@@ -63,8 +63,8 @@ export function Ask(question: string): Promise<string> {
     output: process.stdout,
   });
 
-  return new Promise(resolve => {
-    rl.question(question, response => {
+  return new Promise((resolve) => {
+    rl.question(question, (response) => {
       rl.close();
       resolve(response.trim());
     });
@@ -74,28 +74,38 @@ export function Ask(question: string): Promise<string> {
 export function sendEmail(name: string, email: string) {
   console.log(
     `\n--- Email Confirmation ---\n` +
-    `From: flyenterprise@mail.com\n` +
-    `To: ${email}\n\n` +
-    `Hello, ${name}! We are happy to say that your reservation has been completed!\n`
+      `From: flyenterprise@mail.com\n` +
+      `To: ${email}\n\n` +
+      `Hello, ${name}! We are happy to say that your reservation has been completed!\n`
   );
 }
 
-export async function ReserveFly(start: string, destiny: string, testMode = 0, flightChoice:number = 0, chosenAssent:number = 0, name:string = "", email:string = ""): Promise<string> {
-  const result = flys.filter(f => f.start === start && f.destiny === destiny);
+export async function ReserveFly(
+  start: string,
+  destiny: string,
+  testMode = 0,
+  flightChoice: number = 0,
+  chosenAssent: number = 0,
+  name: string = "",
+  email: string = ""
+): Promise<string> {
+  const result = flys.filter((f) => f.start === start && f.destiny === destiny);
 
   if (result.length === 0) {
     return "There are no available flights for these locations.";
   }
 
   console.log("\nAvailable flights:");
-  result.forEach(f => {
-    console.log(`Flight Number: ${f.n} | Date: ${f.date} | Time: ${f.time} | Price: ${f.price}`);
+  result.forEach((f) => {
+    console.log(
+      `Flight Number: ${f.n} | Date: ${f.date} | Time: ${f.time} | Price: ${f.price}`
+    );
   });
 
-  if(testMode===0){
+  if (testMode === 0) {
     flightChoice = Number(await Ask("Choose a flight by number: "));
   }
-  const chosenFly = result.find(f => f.n === flightChoice);
+  const chosenFly = result.find((f) => f.n === flightChoice);
 
   if (!chosenFly) {
     return "Invalid flight number selected.";
@@ -105,15 +115,15 @@ export async function ReserveFly(start: string, destiny: string, testMode = 0, f
     return "No available seats on this flight.";
   }
 
-  console.log(`\nAvailable seats: ${chosenFly.assents.join(', ')}`);
-  if(testMode===0){
+  console.log(`\nAvailable seats: ${chosenFly.assents.join(", ")}`);
+  if (testMode === 0) {
     chosenAssent = Number(await Ask("Choose your seat number: "));
   }
 
   if (!chosenFly.assents.includes(chosenAssent)) {
     return "This seat is not available.";
   }
-  if(testMode===0){
+  if (testMode === 0) {
     name = await Ask("Your Name: ");
     email = await Ask("Your Email: ");
   }
